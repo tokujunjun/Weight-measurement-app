@@ -81,7 +81,7 @@
             }
             /* Chart height optimization for A4 */
             .chart-container-box {
-                height: 260px !important;
+                height: 280px !important;
             }
             /* Table formatting */
             table {
@@ -149,7 +149,7 @@
         </div>
 
         <!-- Date Range Navigation Bar -->
-        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 no-print">
             <div class="flex items-center space-x-2">
                 <button id="btnPrevPeriod" class="p-2.5 bg-pink-50 hover:bg-pink-100 rounded-2xl text-pink-600 transition-colors shadow-xs no-print">
                     <i data-lucide="chevron-left" class="w-5 h-5"></i>
@@ -227,7 +227,7 @@
         </div>
 
         <!-- Metric Summary Cards -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 no-print">
             <div class="bg-white p-3.5 sm:p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-[11px] font-bold text-pink-400">期間の平均体重 ⚖️</p>
