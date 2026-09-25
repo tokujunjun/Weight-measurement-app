@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2週間 体重管理・分析トラッカー</title>
+    <title>14日間 体重管理・分析トラッカー</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -44,7 +44,7 @@
                     <i data-lucide="activity" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold text-slate-900 tracking-tight">14日間 体重管理トラッカー</h1>
+                    <h1 class="text-xl font-bold text-slate-900 tracking-tight">体重管理トラッカー</h1>
                     <p class="text-xs text-slate-500">起床・朝食後・夕食後・就寝前の4回測定バイタルログ</p>
                 </div>
             </div>
