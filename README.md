@@ -785,10 +785,14 @@
 
         function saveDataToStorage() {
             try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(weightData));
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(stringify(weightData)));
             } catch (e) {
                 console.error("Failed to save to localStorage", e);
             }
+        }
+
+        function stringify(obj) {
+            return JSON.stringify(obj);
         }
 
         // Setup DOM Event Handlers
@@ -808,8 +812,18 @@
                 renderAll();
             });
 
+            // Enhanced Print Action Handling
             document.getElementById('btnPrintA4').addEventListener('click', () => {
-                window.print();
+                try {
+                    if (typeof window.print === 'function') {
+                        window.print();
+                    } else {
+                        throw new Error('window.print is not supported');
+                    }
+                } catch (err) {
+                    console.error("Print invocation failed:", err);
+                    alert("お使いのブラウザ・環境では「印刷」ボタンがブロックされているか対応していません。\n\n【対処法】\nブラウザのメニュー（右上「⋮」や「共有」ボタン）から「印刷」または「PDFで保存」をお試しいただくか、Chrome / Safari などの標準ブラウザで開いてみてください。");
+                }
             });
 
             document.getElementById('btnSampleData').addEventListener('click', () => {
