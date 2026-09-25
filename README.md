@@ -194,110 +194,6 @@
             </div>
         </div>
 
-        <!-- Gemini AI Health Coach Section -->
-        <div class="bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-xl space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
-                <div class="flex items-center space-x-3">
-                    <div class="p-2.5 bg-gradient-to-tr from-amber-400 to-rose-400 rounded-xl text-slate-900 shadow-lg">
-                        <i data-lucide="sparkles" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h2 class="text-lg font-bold tracking-tight">Gemini AI ヘルスコーチ & アドバイザー</h2>
-                            <span class="px-2 py-0.5 text-[10px] font-semibold bg-indigo-500/30 text-indigo-200 rounded-full border border-indigo-400/30">AI Powered</span>
-                        </div>
-                        <p class="text-xs text-indigo-200">14日間の4回測定データを解析し、生活習慣改善と夜間増加の原因をアドバイス</p>
-                    </div>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-2">
-                    <button id="btnAiAnalyze" class="px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 text-slate-950 font-bold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 active:scale-95">
-                        <i data-lucide="brain-circuit" class="w-4 h-4"></i>
-                        ✨ AIで14日間を分析する
-                    </button>
-                    <button id="btnAiGenCard" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white font-medium text-xs rounded-xl transition-all flex items-center gap-1.5 border border-white/15">
-                        <i data-lucide="image" class="w-4 h-4 text-purple-300"></i>
-                        🎨 応援バッジ画像生成
-                    </button>
-                </div>
-            </div>
-
-            <!-- AI Status / Spinner -->
-            <div id="aiLoadingState" class="hidden py-8 text-center space-y-3">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-amber-400 border-t-transparent"></div>
-                <p id="aiLoadingText" class="text-xs text-indigo-200 font-medium">Gemini AI が14日間の体重パターンを分析中...</p>
-            </div>
-
-            <!-- AI Output Card (Hidden initially) -->
-            <div id="aiResultCard" class="hidden bg-white/10 backdrop-blur-md border border-white/10 rounded-xl p-4 sm:p-5 space-y-4">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
-                    <div class="flex items-center gap-3">
-                        <div id="aiGradeBadge" class="w-12 h-12 rounded-xl bg-amber-400 text-slate-950 font-black text-2xl flex items-center justify-center shadow-lg">
-                            A
-                        </div>
-                        <div>
-                            <span class="text-[10px] text-indigo-300 uppercase tracking-widest block font-bold">14日間の習慣評価</span>
-                            <h4 id="aiSummaryTitle" class="text-sm font-bold text-white">順調なペースです！夜間の管理を意識しましょう</h4>
-                        </div>
-                    </div>
-
-                    <!-- TTS Voice Playback Button -->
-                    <button id="btnPlayTts" class="px-3 py-1.5 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 border border-indigo-400/40 transition-colors">
-                        <i data-lucide="volume-2" class="w-4 h-4 text-amber-300"></i>
-                        <span id="ttsBtnText">🔊 AI音声アドバイスを聴く</span>
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                    <!-- Good Points -->
-                    <div class="bg-slate-950/40 p-3.5 rounded-xl border border-white/5 space-y-1.5">
-                        <h5 class="font-bold text-emerald-400 flex items-center gap-1.5">
-                            <i data-lucide="check-circle" class="w-4 h-4"></i>
-                            良い点・成果
-                        </h5>
-                        <ul id="aiGoodPoints" class="space-y-1 text-slate-300 list-disc list-inside">
-                            <!-- Populated by JS -->
-                        </ul>
-                    </div>
-
-                    <!-- Night Gain Analysis -->
-                    <div class="bg-slate-950/40 p-3.5 rounded-xl border border-white/5 space-y-1.5">
-                        <h5 class="font-bold text-rose-400 flex items-center gap-1.5">
-                            <i data-lucide="moon" class="w-4 h-4"></i>
-                            夜間増加の傾向と対策
-                        </h5>
-                        <p id="aiNightAnalysis" class="text-slate-300 leading-relaxed">
-                            <!-- Populated by JS -->
-                        </p>
-                    </div>
-
-                    <!-- Actionable Tips -->
-                    <div class="bg-slate-950/40 p-3.5 rounded-xl border border-white/5 space-y-1.5">
-                        <h5 class="font-bold text-amber-300 flex items-center gap-1.5">
-                            <i data-lucide="lightbulb" class="w-4 h-4"></i>
-                            明日からの改善アクション
-                        </h5>
-                        <ul id="aiActionTips" class="space-y-1 text-slate-300 list-disc list-inside">
-                            <!-- Populated by JS -->
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Hidden audio container for TTS -->
-                <audio id="ttsAudioPlayer" class="hidden"></audio>
-            </div>
-
-            <!-- Generated Illustration Badge Display -->
-            <div id="aiImageContainer" class="hidden bg-white/5 border border-white/10 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4">
-                <img id="aiGeneratedBadgeImg" class="w-32 h-32 rounded-xl object-cover shadow-md border border-white/20" alt="AI Motivation Badge" />
-                <div class="space-y-1 text-center sm:text-left">
-                    <span class="text-[10px] text-amber-300 font-bold uppercase tracking-wider">Gemini 3.1 Flash Image 生成</span>
-                    <h5 class="text-sm font-bold text-white">14日間達成モチベーションカード</h5>
-                    <p class="text-xs text-slate-300">継続的な測定お疲れ様です！このカードを励みに次の14日間も頑張りましょう。</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Chart Section -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
@@ -386,6 +282,110 @@
             </div>
         </div>
 
+        <!-- Gemini Health Coach Section (Moved to Bottom) -->
+        <div class="bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-xl space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-gradient-to-tr from-amber-400 to-rose-400 rounded-xl text-slate-900 shadow-lg">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-lg font-bold tracking-tight">Gemini ヘルスコーチ & アドバイザー</h2>
+                            <span class="px-2 py-0.5 text-[10px] font-semibold bg-indigo-500/30 text-indigo-200 rounded-full border border-indigo-400/30">Gemini Powered</span>
+                        </div>
+                        <p class="text-xs text-indigo-200">14日間の4回測定データを解析し、生活習慣改善と夜間増加の原因をアドバイス</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <button id="btnAiAnalyze" class="px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 text-slate-950 font-bold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5 active:scale-95">
+                        <i data-lucide="brain-circuit" class="w-4 h-4"></i>
+                        ✨ 14日間を分析する
+                    </button>
+                    <button id="btnAiGenCard" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white font-medium text-xs rounded-xl transition-all flex items-center gap-1.5 border border-white/15">
+                        <i data-lucide="image" class="w-4 h-4 text-purple-300"></i>
+                        🎨 応援バッジ画像生成
+                    </button>
+                </div>
+            </div>
+
+            <!-- Status / Spinner -->
+            <div id="aiLoadingState" class="hidden py-8 text-center space-y-3">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-amber-400 border-t-transparent"></div>
+                <p id="aiLoadingText" class="text-xs text-indigo-200 font-medium">Gemini が14日間の体重パターンを分析中...</p>
+            </div>
+
+            <!-- Output Card (Hidden initially) -->
+            <div id="aiResultCard" class="hidden bg-white/10 backdrop-blur-md border border-white/10 rounded-xl p-4 sm:p-5 space-y-4">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+                    <div class="flex items-center gap-3">
+                        <div id="aiGradeBadge" class="w-12 h-12 rounded-xl bg-amber-400 text-slate-950 font-black text-2xl flex items-center justify-center shadow-lg">
+                            A
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-indigo-300 uppercase tracking-widest block font-bold">14日間の習慣評価</span>
+                            <h4 id="aiSummaryTitle" class="text-sm font-bold text-white">順調なペースです！夜間の管理を意識しましょう</h4>
+                        </div>
+                    </div>
+
+                    <!-- TTS Voice Playback Button -->
+                    <button id="btnPlayTts" class="px-3 py-1.5 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 border border-indigo-400/40 transition-colors">
+                        <i data-lucide="volume-2" class="w-4 h-4 text-amber-300"></i>
+                        <span id="ttsBtnText">🔊 音声アドバイスを聴く</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <!-- Good Points -->
+                    <div class="bg-slate-950/40 p-3.5 rounded-xl border border-white/5 space-y-1.5">
+                        <h5 class="font-bold text-emerald-400 flex items-center gap-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            良い点・成果
+                        </h5>
+                        <ul id="aiGoodPoints" class="space-y-1 text-slate-300 list-disc list-inside">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+
+                    <!-- Night Gain Analysis -->
+                    <div class="bg-slate-950/40 p-3.5 rounded-xl border border-white/5 space-y-1.5">
+                        <h5 class="font-bold text-rose-400 flex items-center gap-1.5">
+                            <i data-lucide="moon" class="w-4 h-4"></i>
+                            夜間増加の傾向と対策
+                        </h5>
+                        <p id="aiNightAnalysis" class="text-slate-300 leading-relaxed">
+                            <!-- Populated by JS -->
+                        </p>
+                    </div>
+
+                    <!-- Actionable Tips -->
+                    <div class="bg-slate-950/40 p-3.5 rounded-xl border border-white/5 space-y-1.5">
+                        <h5 class="font-bold text-amber-300 flex items-center gap-1.5">
+                            <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                            明日からの改善アクション
+                        </h5>
+                        <ul id="aiActionTips" class="space-y-1 text-slate-300 list-disc list-inside">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hidden audio container for TTS -->
+                <audio id="ttsAudioPlayer" class="hidden"></audio>
+            </div>
+
+            <!-- Generated Illustration Badge Display -->
+            <div id="aiImageContainer" class="hidden bg-white/5 border border-white/10 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4">
+                <img id="aiGeneratedBadgeImg" class="w-32 h-32 rounded-xl object-cover shadow-md border border-white/20" alt="Motivation Badge" />
+                <div class="space-y-1 text-center sm:text-left">
+                    <span class="text-[10px] text-amber-300 font-bold uppercase tracking-wider">Gemini 3.1 Flash Image 生成</span>
+                    <h5 class="text-sm font-bold text-white">14日間達成モチベーションカード</h5>
+                    <p class="text-xs text-slate-300">継続的な測定お疲れ様です！このカードを励みに次の14日間も頑張りましょう。</p>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- API Key Settings Modal -->
@@ -449,7 +449,6 @@
         function getMondayOfWeek(d) {
             const date = new Date(d);
             const day = date.getDay();
-            // day: 0 (Sun) -> diff -6, 1 (Mon) -> diff 0, ..., 6 (Sat) -> diff -5
             const diff = date.getDate() - day + (day === 0 ? -6 : 1);
             const monday = new Date(date.setDate(diff));
             return formatDate(monday);
@@ -666,7 +665,6 @@
             const startMon = parseDateStr(getStartOfCurrent14Days());
             let baseWeight = 65.0;
 
-            // Generate 28 days of data (2 full 2-week periods starting on Monday)
             for (let i = 0; i < 28; i++) {
                 const d = new Date(startMon);
                 d.setDate(startMon.getDate() - 14 + i);
@@ -674,7 +672,6 @@
 
                 baseWeight += (Math.random() - 0.52) * 0.2;
                 
-                // Simulate occasional missing data (測り忘れ)
                 const isWakeMissing = (i === 5 || i === 12);
                 const isBedMissing = (i === 8);
 
@@ -713,7 +710,6 @@
 
         // Setup DOM Event Handlers
         function setupEventListeners() {
-            // Navigation
             document.getElementById('btnPrevPeriod').addEventListener('click', () => {
                 currentStartDate = addDays(currentStartDate, -14);
                 renderAll();
@@ -729,7 +725,6 @@
                 renderAll();
             });
 
-            // Action Buttons
             document.getElementById('btnSampleData').addEventListener('click', () => {
                 generateSampleData();
                 showToast("サンプルデータを生成しました（測り忘れ空白含む）");
@@ -747,12 +742,10 @@
 
             document.getElementById('btnExportCsv').addEventListener('click', exportCsv);
 
-            // View Tabs
             document.getElementById('btnViewTimeline').addEventListener('click', () => switchView('timeline'));
             document.getElementById('btnViewDaily').addEventListener('click', () => switchView('daily'));
             document.getElementById('btnViewDiff').addEventListener('click', () => switchView('diff'));
 
-            // Form Submit
             document.getElementById('weightForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const date = document.getElementById('inputDate').value;
@@ -772,7 +765,6 @@
                 weightData[date] = { wake, breakfast, dinner, bed };
                 saveDataToStorage();
 
-                // Auto-adjust view period if input date is outside current 14 days
                 const currentDates = getCurrent14DaysList();
                 if (!currentDates.includes(date)) {
                     currentStartDate = getMondayOfWeek(date);
@@ -782,7 +774,6 @@
                 renderAll();
             });
 
-            // Form dynamic alert preview when entering dinner vs bed
             const dinnerInput = document.getElementById('inputDinner');
             const bedInput = document.getElementById('inputBed');
 
@@ -812,7 +803,6 @@
             dinnerInput.addEventListener('input', checkFormDiff);
             bedInput.addEventListener('input', checkFormDiff);
 
-            // Populate form when date input changes
             document.getElementById('inputDate').addEventListener('change', (e) => {
                 const selectedDate = e.target.value;
                 loadFormDataForDate(selectedDate);
@@ -820,7 +810,7 @@
             });
         }
 
-        // VIEW 1: 56-Point Continuous Timeline Chart (14 days x 4 timepoints)
+        // VIEW 1: 56-Point Continuous Timeline Chart
         function renderTimelineChart(ctx, dates) {
             const labels = [];
             const dataPoints = [];
@@ -887,7 +877,7 @@
                         pointBorderColor: pointColors,
                         pointRadius: pointRadius,
                         pointHoverRadius: 8,
-                        spanGaps: false, // Breaks the line when measurements are missing (未測定・測り忘れ)
+                        spanGaps: false,
                         segment: {
                             borderColor: ctx => {
                                 const p0 = ctx.p0DataIndex;
@@ -897,7 +887,7 @@
                                         const y0 = ctx.p0.parsed.y;
                                         const y1 = ctx.p1.parsed.y;
                                         if (y1 > y0) {
-                                            return '#ef4444'; // Red line for night weight gain
+                                            return '#ef4444';
                                         }
                                     }
                                 }
@@ -1078,9 +1068,9 @@
                     const diff = parseFloat((log.bed - log.dinner).toFixed(2));
                     diffData.push(diff);
                     if (diff > 0) {
-                        barColors.push('#ef4444'); // RED for weight gain
+                        barColors.push('#ef4444');
                     } else {
-                        barColors.push('#10b981'); // GREEN for decrease or equal
+                        barColors.push('#10b981');
                     }
                 } else {
                     diffData.push(null);
@@ -1191,16 +1181,13 @@
                     <td class="py-2.5 px-3 text-center">${badge}</td>
                 `;
 
-                // Click row to fill form for editing
                 tr.addEventListener('click', () => {
                     document.getElementById('inputDate').value = d;
                     loadFormDataForDate(d);
                     
-                    // Trigger custom animation/highlight
                     tr.classList.add('bg-indigo-100');
                     setTimeout(() => tr.classList.remove('bg-indigo-100'), 500);
 
-                    // Scroll to form if on mobile
                     if (window.innerWidth < 1024) {
                         document.getElementById('weightForm').scrollIntoView({ behavior: 'smooth' });
                     }
@@ -1257,7 +1244,6 @@
             }, 3000);
         }
 
-        // Initialize application on DOM content loaded
         document.addEventListener('DOMContentLoaded', () => {
             initIcons();
             loadDataFromStorage();
@@ -1265,7 +1251,6 @@
             
             currentStartDate = getStartOfCurrent14Days();
 
-            // Populate initial form data for today
             const initialDate = document.getElementById('inputDate').value;
             loadFormDataForDate(initialDate);
 
@@ -1309,17 +1294,13 @@
             const key = getStoredApiKey();
             if (!key) {
                 document.getElementById('apiKeyModal').classList.remove('hidden');
-                alert("Gemini AI機能を利用するには APIキー の設定が必要です。");
+                alert("Gemini 機能を利用するには APIキー の設定が必要です。");
                 return null;
             }
             return key;
         }
 
-        // ==========================================
-        // Gemini API Helpers & Feature Integration
-        // ==========================================
-
-        // Exponential backoff fetch helper
+        // Helper Functions
         async function fetchWithRetry(url, options, maxRetries = 3) {
             let delay = 1000;
             for (let i = 0; i < maxRetries; i++) {
@@ -1335,7 +1316,6 @@
             throw new Error('API request failed after retries');
         }
 
-        // Helper to convert PCM 16-bit audio to WAV Blob
         function pcmToWav(pcm16Array, sampleRate = 24000) {
             const numChannels = 1;
             const bytesPerSample = 2;
@@ -1356,12 +1336,12 @@
             writeString(8, 'WAVE');
             writeString(12, 'fmt ');
             view.setUint32(16, 16, true);
-            view.setUint16(20, 1, true); // PCM format
+            view.setUint16(20, 1, true);
             view.setUint16(22, numChannels, true);
             view.setUint32(24, sampleRate, true);
             view.setUint32(28, byteRate, true);
             view.setUint16(32, blockAlign, true);
-            view.setUint16(34, 16, true); // 16 bits per sample
+            view.setUint16(34, 16, true);
             writeString(36, 'data');
             view.setUint32(40, dataSize, true);
 
@@ -1394,7 +1374,6 @@
 
             const dates = getCurrent14DaysList();
             
-            // Build summary string from current 14 days data
             let logsSummary = [];
             let nightGainsCount = 0;
             let totalDiffs = [];
@@ -1423,7 +1402,7 @@
                 return;
             }
 
-            loadingText.textContent = "Gemini AI (gemini-3-flash-preview) が14日間のバイタルログを解析中...";
+            loadingText.textContent = "Gemini (gemini-3-flash-preview) が14日間のバイタルログを解析中...";
             loadingState.classList.remove('hidden');
             resultCard.classList.add('hidden');
 
@@ -1496,11 +1475,11 @@ JSON構造:
                     latestSpeechText = data.speechText || data.summary;
 
                     resultCard.classList.remove('hidden');
-                    showToast("Gemini AI の14日間分析が完了しました");
+                    showToast("Gemini の14日間分析が完了しました");
                 }
             } catch (err) {
                 console.error("Gemini Analysis Error:", err);
-                alert("Gemini AI の分析呼び出しに失敗しました。APIキーを確認して再試行してください。");
+                alert("Gemini の分析呼び出しに失敗しました。APIキーを確認して再試行してください。");
             } finally {
                 loadingState.classList.add('hidden');
             }
@@ -1508,7 +1487,7 @@ JSON構造:
 
         async function playSpeechAdvice() {
             if (!latestSpeechText) {
-                alert("最初に「AIで14日間を分析する」を実行してください。");
+                alert("最初に「14日間を分析する」を実行してください。");
                 return;
             }
 
