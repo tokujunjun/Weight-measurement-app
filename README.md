@@ -115,7 +115,7 @@
             </div>
             
             <div class="flex items-center gap-2 flex-wrap justify-center">
-                <button id="btnPrintA4" class="px-3.5 py-2 text-xs font-bold text-indigo-800 bg-indigo-100/80 hover:bg-indigo-200 rounded-2xl transition-all flex items-center gap-1.5 border border-indigo-200 shadow-xs">
+                <button id="btnPrintA4" title="印刷画面を開きます (Ctrl+P / Cmd+P でも呼び出せます)" class="px-3.5 py-2 text-xs font-bold text-indigo-800 bg-indigo-100/80 hover:bg-indigo-200 rounded-2xl transition-all flex items-center gap-1.5 border border-indigo-200 shadow-xs">
                     <i data-lucide="printer" class="w-4 h-4 text-indigo-600"></i>
                     📄 A4印刷 / PDF
                 </button>
@@ -814,17 +814,28 @@
 
             // Enhanced Print Action Handling
             document.getElementById('btnPrintA4').addEventListener('click', () => {
-                try {
-                    if (typeof window.print === 'function') {
-                        window.print();
-                    } else {
-                        throw new Error('window.print is not supported');
-                    }
-                } catch (err) {
-                    console.error("Print invocation failed:", err);
-                    alert("お使いのブラウザ・環境では「印刷」ボタンがブロックされているか対応していません。\n\n【対処法】\nブラウザのメニュー（右上「⋮」や「共有」ボタン）から「印刷」または「PDFで保存」をお試しいただくか、Chrome / Safari などの標準ブラウザで開いてみてください。");
+                triggerPrint();
+            });
+
+            // Keyboard Shortcut (Ctrl+P / Cmd+P) Support
+            window.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                    e.preventDefault();
+                    triggerPrint();
                 }
             });
+
+            function triggerPrint() {
+                showToast("📄 印刷プレビューを呼び出しています...");
+                setTimeout(() => {
+                    try {
+                        window.print();
+                    } catch (err) {
+                        console.error("Print invocation failed:", err);
+                        alert("お使いの環境（アプリ内ブラウザ等）では「印刷」が制限されています。\n\n【解決方法】\n1. Google Chrome や Safari などの標準ブラウザで開く\n2. キーボードで「Ctrl + P」（Macは Cmd + P）を押す\n3. ブラウザメニューの「印刷」または「共有 → 印刷」を選択してください。");
+                    }
+                }, 150);
+            }
 
             document.getElementById('btnSampleData').addEventListener('click', () => {
                 generateSampleData();
