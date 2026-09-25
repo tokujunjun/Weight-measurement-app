@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌸 14日間 ふんわり体重＆バイタルダイアリー 🌸</title>
+    <title>🌸 ふんわり体重＆バイタルダイアリー 🌸</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -47,10 +47,10 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-extrabold text-pink-900 tracking-wide flex items-center gap-1.5">
-                        ふんわり 14日間 体重ダイアリー
+                        14日間 体重ダイアリー
                         <span class="text-xs font-normal bg-pink-100 text-pink-700 px-2.5 py-0.5 rounded-full border border-pink-200">Gemini AI ✨</span>
                     </h1>
-                    <p class="text-xs text-pink-400 font-medium">朝・昼・夜・おやすみ前のぽちぽち体重ログ 🎀</p>
+                    <p class="text-xs text-pink-400 font-medium">起床時・朝食後・夕食後・お休み前のぽちぽち体重ログ 🎀</p>
                 </div>
             </div>
             
@@ -117,30 +117,30 @@
 
                     <div>
                         <label class="block text-xs font-bold text-sky-600 mb-1 flex items-center gap-1">
-                            <span>☀️</span> 起床直後 (kg)
+                            <span>☀️</span> 起床時 (kg)
                         </label>
                         <input type="number" step="0.01" min="20" max="250" id="inputWake" placeholder="例: 52.0" class="w-full px-3 py-2 border-2 border-sky-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 bg-sky-50/30">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-emerald-600 mb-1 flex items-center gap-1">
-                            <span>🥐</span> 朝食直後 (kg)
+                        <label class="block text-xs font-bold text-amber-600 mb-1 flex items-center gap-1">
+                            <span>🥐</span> 朝食後 (kg)
                         </label>
-                        <input type="number" step="0.01" min="20" max="250" id="inputBreakfast" placeholder="例: 52.5" class="w-full px-3 py-2 border-2 border-emerald-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-emerald-50/30">
+                        <input type="number" step="0.01" min="20" max="250" id="inputAfterBreakfast" placeholder="例: 52.4" class="w-full px-3 py-2 border-2 border-amber-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-amber-50/30">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-amber-600 mb-1 flex items-center gap-1">
-                            <span>🍽️</span> 夕食直後 (kg)
+                        <label class="block text-xs font-bold text-emerald-600 mb-1 flex items-center gap-1">
+                            <span>🍽️</span> 夕食後 (kg)
                         </label>
-                        <input type="number" step="0.01" min="20" max="250" id="inputDinner" placeholder="例: 53.2" class="w-full px-3 py-2 border-2 border-amber-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 bg-amber-50/30">
+                        <input type="number" step="0.01" min="20" max="250" id="inputAfterDinner" placeholder="例: 52.8" class="w-full px-3 py-2 border-2 border-emerald-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-emerald-50/30">
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold text-purple-600 mb-1 flex items-center gap-1">
-                            <span>🌙</span> 就寝直前 (kg)
+                            <span>🌙</span> お休み前 (kg)
                         </label>
-                        <input type="number" step="0.01" min="20" max="250" id="inputBed" placeholder="例: 53.0" class="w-full px-3 py-2 border-2 border-purple-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 bg-purple-50/30">
+                        <input type="number" step="0.01" min="20" max="250" id="inputBed" placeholder="例: 52.6" class="w-full px-3 py-2 border-2 border-purple-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 bg-purple-50/30">
                     </div>
 
                     <div class="sm:col-span-2 md:col-span-1 lg:col-span-1">
@@ -180,7 +180,7 @@
 
             <div class="bg-white p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-pink-400">夜間に増えた日数 🍓</p>
+                    <p class="text-xs font-bold text-pink-400">就寝直前増えた日数 🍓</p>
                     <h3 id="statNightIncreaseCount" class="text-2xl font-black text-rose-500 mt-1">0 <span class="text-sm font-medium text-pink-400">/ 14日</span></h3>
                 </div>
                 <div class="p-3 bg-rose-100 text-rose-500 rounded-2xl text-xl">
@@ -207,7 +207,7 @@
                         <span>📊</span>
                         14日間の体重グラフ
                     </h2>
-                    <p class="text-xs text-pink-400 font-medium mt-0.5">「夕食より就寝前が増えちゃった日」はピンク苺色🍓で目立ちます</p>
+                    <p class="text-xs text-pink-400 font-medium mt-0.5">「夕食後よりお休み前が増えたポイント」はピンク苺色🍓でハイライトされます</p>
                 </div>
 
                 <!-- View Switcher Tabs -->
@@ -219,7 +219,7 @@
                         時間帯別 4本線
                     </button>
                     <button id="btnViewDiff" class="px-3.5 py-1.5 rounded-xl text-pink-600 hover:text-pink-900 transition-all">
-                        夕食 vs 就寝 差分
+                        夕食後 vs お休み前 差分
                     </button>
                 </div>
             </div>
@@ -228,23 +228,23 @@
             <div class="flex flex-wrap items-center gap-3 text-xs bg-pink-50/60 p-3 rounded-2xl font-medium">
                 <div class="flex items-center gap-1.5">
                     <span class="w-3 h-3 rounded-full bg-sky-400 inline-block"></span>
-                    <span class="text-pink-800">起床直後</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
-                    <span class="text-pink-800">朝食直後</span>
+                    <span class="text-pink-800">起床時</span>
                 </div>
                 <div class="flex items-center gap-1.5">
                     <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
-                    <span class="text-pink-800">夕食直後</span>
+                    <span class="text-pink-800">朝食後</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
+                    <span class="text-pink-800">夕食後</span>
                 </div>
                 <div class="flex items-center gap-1.5">
                     <span class="w-3 h-3 rounded-full bg-purple-400 inline-block"></span>
-                    <span class="text-pink-800">就寝直前(通常)</span>
+                    <span class="text-pink-800">お休み前(通常)</span>
                 </div>
                 <div class="flex items-center gap-1.5 font-bold text-rose-600 bg-rose-100/80 px-2.5 py-1 rounded-xl border border-rose-200">
                     <span class="w-3 h-3 rounded-full bg-rose-500 inline-block animate-ping"></span>
-                    <span>就寝直前 (夕食より増加🍓)</span>
+                    <span>お休み前 (夕食後より増加🍓)</span>
                 </div>
                 <div class="text-pink-400 italic">
                     ※ 測り忘れた時間はグラフ線がスキップされます
@@ -272,11 +272,11 @@
                     <thead>
                         <tr class="bg-pink-50/80 border-b border-pink-100 text-xs font-bold text-pink-800">
                             <th class="py-3 px-3">日付</th>
-                            <th class="py-3 px-3">☀️ 起床</th>
-                            <th class="py-3 px-3">🥐 朝食</th>
-                            <th class="py-3 px-3">🍽️ 夕食</th>
-                            <th class="py-3 px-3">🌙 就寝</th>
-                            <th class="py-3 px-3">夕食→就寝</th>
+                            <th class="py-3 px-3">☀️ 起床時</th>
+                            <th class="py-3 px-3">🥐 朝食後</th>
+                            <th class="py-3 px-3">🍽️ 夕食後</th>
+                            <th class="py-3 px-3">🌙 お休み前</th>
+                            <th class="py-3 px-3">夕食後→お休み前</th>
                             <th class="py-3 px-3 text-center">判定</th>
                         </tr>
                     </thead>
@@ -299,7 +299,7 @@
                             <h2 class="text-lg font-black tracking-wide">Gemini ふんわりAIヘルスコーチ</h2>
                             <span class="px-2.5 py-0.5 text-[10px] font-bold bg-white/20 text-pink-100 rounded-full border border-white/30">AI Powered</span>
                         </div>
-                        <p class="text-xs text-pink-100 font-medium">14日間の体重パターンをやさしく分析してアドバイスしてくれるよ✨</p>
+                        <p class="text-xs text-pink-100 font-medium">14日間の「起床時・朝食後・夕食後・お休み前」のパターンをやさしく分析してアドバイスしてくれるよ✨</p>
                     </div>
                 </div>
 
@@ -330,7 +330,7 @@
                         </div>
                         <div>
                             <span class="text-[10px] text-pink-200 uppercase tracking-widest block font-bold">14日間の習慣評価</span>
-                            <h4 id="aiSummaryTitle" class="text-sm font-extrabold text-white">すばらしいペースです！夜ののんびりタイムを意識してみよう♪</h4>
+                            <h4 id="aiSummaryTitle" class="text-sm font-extrabold text-white">すばらしいペースです！生活リズムを意識してみよう♪</h4>
                         </div>
                     </div>
 
@@ -352,10 +352,10 @@
                         </ul>
                     </div>
 
-                    <!-- Night Gain Analysis -->
+                    <!-- Meal Gain Analysis -->
                     <div class="bg-black/20 p-3.5 rounded-2xl border border-white/10 space-y-1.5">
                         <h5 class="font-bold text-rose-300 flex items-center gap-1.5">
-                            <span>🌙</span> 夜の変動アドバイス
+                            <span>🌙</span> 夕食・夜の間食アドバイス
                         </h5>
                         <p id="aiNightAnalysis" class="text-pink-100 leading-relaxed">
                             <!-- Populated by JS -->
@@ -434,8 +434,8 @@
 
     <script>
         // Global Application State
-        const STORAGE_KEY = 'weight_tracker_data_v1';
-        let weightData = {}; // Format: { "YYYY-MM-DD": { wake: 52.0, breakfast: 52.5, dinner: 53.2, bed: 53.0 } }
+        const STORAGE_KEY = 'weight_tracker_data_v3';
+        let weightData = {}; // Format: { "YYYY-MM-DD": { wake: 52.0, afterBreakfast: 52.4, afterDinner: 52.8, bed: 52.6 } }
         let currentStartDate = '';
         let currentView = 'timeline'; // 'timeline' | 'daily' | 'diff'
         let chartInstance = null;
@@ -527,14 +527,15 @@
                 const log = weightData[d];
                 if (!log) return;
 
-                ['wake', 'breakfast', 'dinner', 'bed'].forEach(key => {
+                ['wake', 'afterBreakfast', 'afterDinner', 'bed'].forEach(key => {
                     if (log[key] !== null && log[key] !== undefined && !isNaN(log[key])) {
                         allWeights.push(log[key]);
                     }
                 });
 
-                if (log.dinner !== null && log.dinner !== undefined && log.bed !== null && log.bed !== undefined) {
-                    const diff = log.bed - log.dinner;
+                if (log.afterDinner !== null && log.afterDinner !== undefined &&
+                    log.bed !== null && log.bed !== undefined) {
+                    const diff = log.bed - log.afterDinner;
                     nightDiffs.push(diff);
                     if (diff > 0) {
                         nightIncreaseCount++;
@@ -648,13 +649,13 @@
             if (weightData[dateStr]) {
                 const d = weightData[dateStr];
                 document.getElementById('inputWake').value = d.wake ?? '';
-                document.getElementById('inputBreakfast').value = d.breakfast ?? '';
-                document.getElementById('inputDinner').value = d.dinner ?? '';
+                document.getElementById('inputAfterBreakfast').value = d.afterBreakfast ?? d.breakfast ?? '';
+                document.getElementById('inputAfterDinner').value = d.afterDinner ?? d.dinner ?? '';
                 document.getElementById('inputBed').value = d.bed ?? '';
             } else {
                 document.getElementById('inputWake').value = '';
-                document.getElementById('inputBreakfast').value = '';
-                document.getElementById('inputDinner').value = '';
+                document.getElementById('inputAfterBreakfast').value = '';
+                document.getElementById('inputAfterDinner').value = '';
                 document.getElementById('inputBed').value = '';
             }
         }
@@ -675,13 +676,13 @@
                 const isBedMissing = (i === 8);
 
                 const wake = isWakeMissing ? null : parseFloat(baseWeight.toFixed(2));
-                const breakfast = parseFloat(((wake || baseWeight) + 0.3 + Math.random() * 0.3).toFixed(2));
-                const dinner = parseFloat(((wake || baseWeight) + 0.7 + Math.random() * 0.5).toFixed(2));
+                const afterBreakfast = parseFloat(((wake || baseWeight) + 0.2 + Math.random() * 0.25).toFixed(2));
+                const afterDinner = parseFloat((afterBreakfast + 0.3 + Math.random() * 0.35).toFixed(2));
                 
-                const bedGain = (i % 3 === 0) ? (0.2 + Math.random() * 0.3) : (-0.1 - Math.random() * 0.2);
-                const bed = isBedMissing ? null : parseFloat((dinner + bedGain).toFixed(2));
+                const bedGain = (i % 3 === 0) ? (0.2 + Math.random() * 0.2) : (-0.15 - Math.random() * 0.2);
+                const bed = isBedMissing ? null : parseFloat((afterDinner + bedGain).toFixed(2));
 
-                weightData[dateStr] = { wake, breakfast, dinner, bed };
+                weightData[dateStr] = { wake, afterBreakfast, afterDinner, bed };
             }
             saveDataToStorage();
         }
@@ -689,9 +690,19 @@
         // Storage Functions
         function loadDataFromStorage() {
             try {
-                const saved = localStorage.getItem(STORAGE_KEY);
+                const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('weight_tracker_data_v2') || localStorage.getItem('weight_tracker_data_v1');
                 if (saved) {
-                    weightData = JSON.parse(saved);
+                    const parsed = JSON.parse(saved);
+                    weightData = {};
+                    Object.keys(parsed).forEach(k => {
+                        const item = parsed[k];
+                        weightData[k] = {
+                            wake: item.wake ?? null,
+                            afterBreakfast: item.afterBreakfast ?? item.breakfast ?? item.beforeBreakfast ?? null,
+                            afterDinner: item.afterDinner ?? item.dinner ?? null,
+                            bed: item.bed ?? null
+                        };
+                    });
                 }
             } catch (e) {
                 console.error("Failed to load from localStorage", e);
@@ -755,13 +766,13 @@
                 };
 
                 const wake = parseInput('inputWake');
-                const breakfast = parseInput('inputBreakfast');
-                const dinner = parseInput('inputDinner');
+                const afterBreakfast = parseInput('inputAfterBreakfast');
+                const afterDinner = parseInput('inputAfterDinner');
                 const bed = parseInput('inputBed');
 
                 if (!date) return;
 
-                weightData[date] = { wake, breakfast, dinner, bed };
+                weightData[date] = { wake, afterBreakfast, afterDinner, bed };
                 saveDataToStorage();
 
                 const currentDates = getCurrent14DaysList();
@@ -773,24 +784,24 @@
                 renderAll();
             });
 
-            const dinnerInput = document.getElementById('inputDinner');
+            const afterDinnerInput = document.getElementById('inputAfterDinner');
             const bedInput = document.getElementById('inputBed');
 
             function checkFormDiff() {
-                const dinner = parseFloat(dinnerInput.value);
-                const bed = parseFloat(bedInput.value);
+                const dinnerVal = parseFloat(afterDinnerInput.value);
+                const bedVal = parseFloat(bedInput.value);
                 const alertEl = document.getElementById('formAlert');
 
-                if (!isNaN(dinner) && !isNaN(bed)) {
-                    if (bed > dinner) {
-                        const diff = (bed - dinner).toFixed(2);
+                if (!isNaN(dinnerVal) && !isNaN(bedVal)) {
+                    if (bedVal > dinnerVal) {
+                        const diff = (bedVal - dinnerVal).toFixed(2);
                         alertEl.className = 'p-3 rounded-2xl text-xs font-bold flex items-center gap-2 bg-rose-100 text-rose-700 border border-rose-200';
-                        alertEl.innerHTML = `🍓 就寝前が夕食後より <strong>+${diff}kg</strong> 増えています！（グラフで苺色ハイライト）`;
+                        alertEl.innerHTML = `🍓 お休み前が夕食後より <strong>+${diff}kg</strong> 増えています！（夜の間食注意・苺色ハイライト）`;
                         alertEl.classList.remove('hidden');
                     } else {
-                        const diff = (dinner - bed).toFixed(2);
+                        const diff = (dinnerVal - bedVal).toFixed(2);
                         alertEl.className = 'p-3 rounded-2xl text-xs font-bold flex items-center gap-2 bg-emerald-100 text-emerald-800 border border-emerald-200';
-                        alertEl.innerHTML = `✨ 就寝前が夕食後より <strong>-${diff}kg</strong> 減ってるよ！ナイスキープ♪`;
+                        alertEl.innerHTML = `✨ お休み前が夕食後より <strong>-${diff}kg</strong> 減っているか同等です！素晴らしいナイトケア♪`;
                         alertEl.classList.remove('hidden');
                     }
                     lucide.createIcons();
@@ -799,7 +810,7 @@
                 }
             }
 
-            dinnerInput.addEventListener('input', checkFormDiff);
+            afterDinnerInput.addEventListener('input', checkFormDiff);
             bedInput.addEventListener('input', checkFormDiff);
 
             document.getElementById('inputDate').addEventListener('change', (e) => {
@@ -818,17 +829,17 @@
             const isNightGainSegment = [];
 
             const timeKeys = [
-                { key: 'wake', name: '起床' },
-                { key: 'breakfast', name: '朝食' },
-                { key: 'dinner', name: '夕食' },
-                { key: 'bed', name: '就寝' }
+                { key: 'wake', name: '起床時' },
+                { key: 'afterBreakfast', name: '朝食後' },
+                { key: 'afterDinner', name: '夕食後' },
+                { key: 'bed', name: 'お休み前' }
             ];
 
             dates.forEach(d => {
                 const dayLog = weightData[d] || {};
                 const shortDate = formatShortDate(d);
 
-                const dinnerVal = dayLog.dinner;
+                const dinnerVal = dayLog.afterDinner;
                 const bedVal = dayLog.bed;
                 const isRedDay = (dinnerVal !== null && dinnerVal !== undefined && bedVal !== null && bedVal !== undefined && bedVal > dinnerVal);
 
@@ -843,11 +854,11 @@
                     } else if (tk.key === 'wake') {
                         pointColors.push('#38bdf8'); // Sky Blue
                         pointRadius.push(4.5);
-                    } else if (tk.key === 'breakfast') {
-                        pointColors.push('#34d399'); // Mint Green
+                    } else if (tk.key === 'afterBreakfast') {
+                        pointColors.push('#fbbf24'); // Amber
                         pointRadius.push(4.5);
-                    } else if (tk.key === 'dinner') {
-                        pointColors.push('#fbbf24'); // Pastel Amber
+                    } else if (tk.key === 'afterDinner') {
+                        pointColors.push('#34d399'); // Mint Green
                         pointRadius.push(4.5);
                     } else {
                         pointColors.push('#c084fc'); // Pastel Purple
@@ -916,7 +927,7 @@
                                     const idx = context.dataIndex;
                                     const dayInfo = isNightGainSegment[idx];
                                     if (dayInfo && dayInfo.type === 'bed' && dayInfo.isRed) {
-                                        return `就寝直前: ${val} kg (🍓 夕食後より増えています)`;
+                                        return `お休み前: ${val} kg (🍓 夕食後より増えています)`;
                                     }
                                     return `体重: ${val} kg`;
                                 }
@@ -958,8 +969,8 @@
             const shortLabels = dates.map(d => formatShortDate(d));
 
             const wakeData = [];
-            const breakfastData = [];
-            const dinnerData = [];
+            const afterBfData = [];
+            const afterDinnerData = [];
             const bedData = [];
 
             const bedPointColors = [];
@@ -968,12 +979,12 @@
             dates.forEach(d => {
                 const log = weightData[d] || {};
                 wakeData.push(log.wake ?? null);
-                breakfastData.push(log.breakfast ?? null);
-                dinnerData.push(log.dinner ?? null);
+                afterBfData.push(log.afterBreakfast ?? null);
+                afterDinnerData.push(log.afterDinner ?? null);
                 bedData.push(log.bed ?? null);
 
-                if (log.dinner !== null && log.dinner !== undefined &&
-                    log.bed !== null && log.bed !== undefined && log.bed > log.dinner) {
+                if (log.afterDinner !== null && log.afterDinner !== undefined &&
+                    log.bed !== null && log.bed !== undefined && log.bed > log.afterDinner) {
                     bedPointColors.push('#f43f5e');
                     bedPointRadius.push(7);
                 } else {
@@ -988,7 +999,7 @@
                     labels: shortLabels,
                     datasets: [
                         {
-                            label: '☀️ 起床直後',
+                            label: '☀️ 起床時',
                             data: wakeData,
                             borderColor: '#38bdf8',
                             backgroundColor: '#38bdf8',
@@ -996,23 +1007,23 @@
                             tension: 0.25
                         },
                         {
-                            label: '🥐 朝食直後',
-                            data: breakfastData,
-                            borderColor: '#34d399',
-                            backgroundColor: '#34d399',
-                            spanGaps: false,
-                            tension: 0.25
-                        },
-                        {
-                            label: '🍽️ 夕食直後',
-                            data: dinnerData,
+                            label: '🥐 朝食後',
+                            data: afterBfData,
                             borderColor: '#fbbf24',
                             backgroundColor: '#fbbf24',
                             spanGaps: false,
                             tension: 0.25
                         },
                         {
-                            label: '🌙 就寝直前 (夕食＜就寝で🍓色)',
+                            label: '🍽️ 夕食後',
+                            data: afterDinnerData,
+                            borderColor: '#34d399',
+                            backgroundColor: '#34d399',
+                            spanGaps: false,
+                            tension: 0.25
+                        },
+                        {
+                            label: '🌙 お休み前 (夕食後＜お休み前で🍓色)',
                             data: bedData,
                             borderColor: '#c084fc',
                             backgroundColor: bedPointColors,
@@ -1035,9 +1046,9 @@
                                     if (context.datasetIndex === 3) {
                                         const d = dates[context.dataIndex];
                                         const log = weightData[d];
-                                        if (log && log.dinner !== undefined && log.dinner !== null && log.bed !== undefined && log.bed !== null && log.bed > log.dinner) {
-                                            const diff = (log.bed - log.dinner).toFixed(2);
-                                            return `🍓 夕食直後より +${diff}kg 増えたよ！`;
+                                        if (log && log.afterDinner !== undefined && log.afterDinner !== null && log.bed !== undefined && log.bed !== null && log.bed > log.afterDinner) {
+                                            const diff = (log.bed - log.afterDinner).toFixed(2);
+                                            return `🍓 夕食後より +${diff}kg 増えたよ！`;
                                         }
                                     }
                                 }
@@ -1057,7 +1068,7 @@
             });
         }
 
-        // VIEW 3: Dinner vs Bed Diff Bar Chart
+        // VIEW 3: After Dinner vs Bed Diff Bar Chart
         function renderDiffChart(ctx, dates) {
             const shortLabels = dates.map(d => formatShortDate(d));
             const diffData = [];
@@ -1065,8 +1076,8 @@
 
             dates.forEach(d => {
                 const log = weightData[d] || {};
-                if (log.dinner !== null && log.dinner !== undefined && log.bed !== null && log.bed !== undefined) {
-                    const diff = parseFloat((log.bed - log.dinner).toFixed(2));
+                if (log.afterDinner !== null && log.afterDinner !== undefined && log.bed !== null && log.bed !== undefined) {
+                    const diff = parseFloat((log.bed - log.afterDinner).toFixed(2));
                     diffData.push(diff);
                     if (diff > 0) {
                         barColors.push('#f43f5e');
@@ -1084,7 +1095,7 @@
                 data: {
                     labels: shortLabels,
                     datasets: [{
-                        label: '夕食後 → 就寝前の体重変化 (kg)',
+                        label: '夕食後 → お休み前の体重変化 (kg)',
                         data: diffData,
                         backgroundColor: barColors,
                         borderRadius: 8
@@ -1099,8 +1110,8 @@
                             callbacks: {
                                 label: ctx => {
                                     const val = ctx.parsed.y;
-                                    if (val > 0) return `増加: +${val} kg (🍓 夜増加)`;
-                                    return `減少: ${val} kg (✨ スッキリ)`;
+                                    if (val > 0) return `増加: +${val} kg (🍓 夜の間食傾向)`;
+                                    return `減少/維持: ${val} kg (✨ スッキリ就寝)`;
                                 }
                             }
                         }
@@ -1134,20 +1145,20 @@
             tbody.innerHTML = '';
 
             dates.forEach(d => {
-                const log = weightData[d] || { wake: null, breakfast: null, dinner: null, bed: null };
+                const log = weightData[d] || { wake: null, afterBreakfast: null, afterDinner: null, bed: null };
                 const shortDate = formatShortDate(d);
 
                 const wakeStr = log.wake !== null && log.wake !== undefined ? log.wake.toFixed(2) : '-';
-                const breakfastStr = log.breakfast !== null && log.breakfast !== undefined ? log.breakfast.toFixed(2) : '-';
-                const dinnerStr = log.dinner !== null && log.dinner !== undefined ? log.dinner.toFixed(2) : '-';
+                const afterBfStr = log.afterBreakfast !== null && log.afterBreakfast !== undefined ? log.afterBreakfast.toFixed(2) : '-';
+                const afterDinnerStr = log.afterDinner !== null && log.afterDinner !== undefined ? log.afterDinner.toFixed(2) : '-';
                 const bedStr = log.bed !== null && log.bed !== undefined ? log.bed.toFixed(2) : '-';
 
                 let diffStr = '-';
                 let isRed = false;
                 let badge = '<span class="text-pink-300 text-xs">-</span>';
 
-                if (log.dinner !== null && log.dinner !== undefined && log.bed !== null && log.bed !== undefined) {
-                    const diff = parseFloat((log.bed - log.dinner).toFixed(2));
+                if (log.afterDinner !== null && log.afterDinner !== undefined && log.bed !== null && log.bed !== undefined) {
+                    const diff = parseFloat((log.bed - log.afterDinner).toFixed(2));
                     if (diff > 0) {
                         diffStr = `<span class="text-rose-500 font-bold">+${diff.toFixed(2)} kg</span>`;
                         isRed = true;
@@ -1176,8 +1187,8 @@
                         ${isRed ? '🍓' : ''}
                     </td>
                     <td class="py-3 px-3 text-pink-800">${wakeStr}</td>
-                    <td class="py-3 px-3 text-pink-800">${breakfastStr}</td>
-                    <td class="py-3 px-3 text-pink-800 font-bold">${dinnerStr}</td>
+                    <td class="py-3 px-3 text-pink-800">${afterBfStr}</td>
+                    <td class="py-3 px-3 text-pink-800 font-bold">${afterDinnerStr}</td>
                     <td class="py-3 px-3 ${isRed ? 'text-rose-600 font-black' : 'text-pink-800'}">${bedStr}</td>
                     <td class="py-3 px-3">${diffStr}</td>
                     <td class="py-3 px-3 text-center">${badge}</td>
@@ -1208,19 +1219,19 @@
                 return;
             }
 
-            let csvContent = "data:text/csv;charset=utf-8,日付,起床直後(kg),朝食直後(kg),夕食直後(kg),就寝直前(kg),夕食→就寝差分(kg)\n";
+            let csvContent = "data:text/csv;charset=utf-8,日付,起床時(kg),朝食後(kg),夕食後(kg),お休み前(kg),夕食後→お休み前差分(kg)\n";
 
             dates.forEach(d => {
                 const log = weightData[d];
                 const wake = log.wake ?? '';
-                const breakfast = log.breakfast ?? '';
-                const dinner = log.dinner ?? '';
+                const afterBf = log.afterBreakfast ?? '';
+                const afterDinner = log.afterDinner ?? '';
                 const bed = log.bed ?? '';
                 let diff = '';
-                if (dinner !== '' && bed !== '') {
-                    diff = (bed - dinner).toFixed(2);
+                if (afterDinner !== '' && bed !== '') {
+                    diff = (bed - afterDinner).toFixed(2);
                 }
-                csvContent += `${d},${wake},${breakfast},${dinner},${bed},${diff}\n`;
+                csvContent += `${d},${wake},${afterBf},${afterDinner},${bed},${diff}\n`;
             });
 
             const encodedUri = encodeURI(csvContent);
@@ -1383,18 +1394,19 @@
                 const log = weightData[d];
                 if (!log) return;
                 const wake = log.wake ?? '未測定';
-                const bf = log.breakfast ?? '未測定';
-                const din = log.dinner ?? '未測定';
+                const afterBf = log.afterBreakfast ?? '未測定';
+                const afterDinner = log.afterDinner ?? '未測定';
                 const bed = log.bed ?? '未測定';
                 let nightDiffStr = '計算不可';
 
-                if (log.dinner !== null && log.dinner !== undefined && log.bed !== null && log.bed !== undefined) {
-                    const diff = log.bed - log.dinner;
+                if (log.afterDinner !== null && log.afterDinner !== undefined &&
+                    log.bed !== null && log.bed !== undefined) {
+                    const diff = log.bed - log.afterDinner;
                     nightDiffStr = `${diff > 0 ? '+' : ''}${diff.toFixed(2)}kg`;
                     if (diff > 0) nightGainsCount++;
                 }
 
-                logsSummary.push(`日付:${d} | 起床:${wake} | 朝食後:${bf} | 夕食後:${din} | 就寝前:${bed} | 夕食→就寝差:${nightDiffStr}`);
+                logsSummary.push(`日付:${d} | 起床時:${wake} | 朝食後:${afterBf} | 夕食後:${afterDinner} | お休み前:${bed} | 夕食後→お休み前差:${nightDiffStr}`);
             });
 
             if (logsSummary.length === 0) {
@@ -1408,20 +1420,20 @@
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
-            const systemPrompt = "あなたはユーザーの健康とダイエットを優しく見守る、可愛くて親身なAIフレンド・ヘルスコーチです。絵文字（🌸, 🍓, ✨, 🎀, 🌙など）を交えながら、ポジティブでやる気が出る言葉遣いでフィードバックしてください。特に「夕食後より就寝直前の体重が増えた日（夜間増加）」の原因と対策をやさしくアドバイスします。";
+            const systemPrompt = "あなたはユーザーの健康と生活習慣を優しく見守る、可愛くて親身なAIフレンド・ヘルスコーチです。絵文字（🌸, 🥐, 🍽️, ✨, 🎀, 🌙など）を交えながら、ポジティブでやる気が出る言葉遣いでフィードバックしてください。特に「起床時」「朝食後」「夕食後」「お休み前」の傾向と、夕食後から就寝前までの体重変化・夜の間食アドバイスを行ってください。";
             
             const userPrompt = `ユーザーの14日間の記録です：
 
 ${logsSummary.join('\n')}
 
-夕食後より就寝前に増えた日数は ${nightGainsCount} 日間です。
+夕食後よりお休み前（就寝直前）に増えた日数は ${nightGainsCount} 日間です。
 以下のJSON形式で回答してね：
 
 {
-  "grade": "🌸", "⭐", "🍓", "☘️" などの絵文字やランク記号,
+  "grade": "🌸", "⭐", "🌙", "☘️" などの絵文字やランク記号,
   "summary": "やさしく励ます14日間の総評（50〜80文字）",
   "goodPoints": ["褒めポイント1", "褒めポイント2"],
-  "nightAnalysis": "夜間増加の傾向と、無理のないやさしいアドバイス（100文字程度）",
+  "nightAnalysis": "夕食後からお休み前までの変化に対する夜の間食・ナイトケアのやさしいアドバイス（100文字程度）",
   "actionTips": ["明日から試せるプチ改善アドバイス1", "アドバイス2", "アドバイス3"],
   "speechText": "音声用の短く明るい応援メッセージ（絵文字なしで読みやすい文章、70文字程度）"
 }`;
