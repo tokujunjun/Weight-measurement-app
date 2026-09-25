@@ -34,12 +34,72 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #e11d48;
         }
+
+        /* 📄 A4 Print Stylesheet Optimization */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 8mm 10mm 8mm 10mm;
+            }
+            body {
+                background: white !important;
+                background-image: none !important;
+                color: #000 !important;
+                font-size: 11px !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            /* Hide non-printable components */
+            header,
+            .no-print,
+            #apiKeyModal,
+            #toast,
+            #btnViewTimeline,
+            #btnViewDaily,
+            #btnViewDiff,
+            button {
+                display: none !important;
+            }
+            main {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                space-y: 12px !important;
+            }
+            .print-header {
+                display: block !important;
+                border-bottom: 2px solid #f472b6;
+                padding-bottom: 6px;
+                margin-bottom: 12px;
+            }
+            .bg-white {
+                border: 1px solid #fbcfe8 !important;
+                box-shadow: none !important;
+                border-radius: 12px !important;
+                break-inside: avoid;
+                padding: 12px !important;
+            }
+            /* Chart height optimization for A4 */
+            .chart-container-box {
+                height: 260px !important;
+            }
+            /* Table formatting */
+            table {
+                font-size: 10px !important;
+            }
+            th, td {
+                padding: 4px 6px !important;
+            }
+        }
+        .print-header {
+            display: none;
+        }
     </style>
 </head>
 <body class="text-pink-950 min-h-screen flex flex-col">
 
     <!-- Header -->
-    <header class="bg-white/90 backdrop-blur-md border-b-2 border-pink-200 sticky top-0 z-30 shadow-sm">
+    <header class="bg-white/90 backdrop-blur-md border-b-2 border-pink-200 sticky top-0 z-30 shadow-sm no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center space-x-3">
                 <div class="p-3 bg-gradient-to-tr from-rose-400 to-pink-300 text-white rounded-2xl shadow-md shadow-pink-200 text-2xl flex items-center justify-center">
@@ -48,13 +108,21 @@
                 <div>
                     <h1 class="text-xl font-extrabold text-pink-900 tracking-wide flex items-center gap-1.5">
                         14日間 体重ダイアリー
-                        <span class="text-xs font-normal bg-pink-100 text-pink-700 px-2.5 py-0.5 rounded-full border border-pink-200">Gemini AI ✨</span>
+                        <span class="text-xs font-normal bg-pink-100 text-pink-700 px-2.5 py-0.5 rounded-full border border-pink-200">Gemini 搭載 ✨</span>
                     </h1>
                     <p class="text-xs text-pink-400 font-medium">起床時・朝食後・夕食後・お休み前のぽちぽち体重ログ 🎀</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-2 flex-wrap justify-center">
+                <button id="btnPrintA4" class="px-3.5 py-2 text-xs font-bold text-indigo-800 bg-indigo-100/80 hover:bg-indigo-200 rounded-2xl transition-all flex items-center gap-1.5 border border-indigo-200 shadow-xs">
+                    <i data-lucide="printer" class="w-4 h-4 text-indigo-600"></i>
+                    📄 A4印刷 / PDF
+                </button>
+                <button id="btnExportCsv" class="px-3.5 py-2 text-xs font-bold text-emerald-800 bg-emerald-100/80 hover:bg-emerald-200 rounded-2xl transition-all flex items-center gap-1.5 border border-emerald-200 shadow-xs">
+                    <i data-lucide="download" class="w-4 h-4 text-emerald-600"></i>
+                    CSV保存 📄
+                </button>
                 <button id="btnApiKeyConfig" class="px-3.5 py-2 text-xs font-bold text-purple-700 bg-purple-100/80 hover:bg-purple-200 rounded-2xl transition-all flex items-center gap-1.5 border border-purple-200 shadow-xs">
                     <i data-lucide="key" class="w-4 h-4 text-purple-500"></i>
                     🔑 APIキー設定
@@ -67,10 +135,6 @@
                     <i data-lucide="trash-2" class="w-4 h-4 text-rose-500"></i>
                     リセット
                 </button>
-                <button id="btnExportCsv" class="px-3.5 py-2 text-xs font-bold text-emerald-800 bg-emerald-100/80 hover:bg-emerald-200 rounded-2xl transition-all flex items-center gap-1.5 border border-emerald-200 shadow-xs">
-                    <i data-lucide="download" class="w-4 h-4 text-emerald-600"></i>
-                    CSV保存 📄
-                </button>
             </div>
         </div>
     </header>
@@ -78,28 +142,34 @@
     <!-- Main Content -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
+        <!-- A4 Printable Header Title (Visible only when printed) -->
+        <div class="print-header text-center">
+            <h1 class="text-2xl font-black text-pink-950">🌸 14日間 ふんわり体重＆バイタルダイアリー 🌸</h1>
+            <p id="printPeriodTitle" class="text-xs font-bold text-pink-800 mt-1">----年--月--日 〜 ----年--月--日</p>
+        </div>
+
         <!-- Date Range Navigation Bar -->
         <div class="bg-white/90 backdrop-blur-sm p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center space-x-2">
-                <button id="btnPrevPeriod" class="p-2.5 bg-pink-50 hover:bg-pink-100 rounded-2xl text-pink-600 transition-colors shadow-xs">
+                <button id="btnPrevPeriod" class="p-2.5 bg-pink-50 hover:bg-pink-100 rounded-2xl text-pink-600 transition-colors shadow-xs no-print">
                     <i data-lucide="chevron-left" class="w-5 h-5"></i>
                 </button>
                 <div class="text-center px-4">
-                    <span id="periodLabel" class="text-sm font-extrabold text-pink-900">----年--月--日 〜 ----年--月--日</span>
+                    <span id="periodLabel" class="text-sm sm:text-base font-extrabold text-pink-900">----年--月--日 〜 ----年--月--日</span>
                     <span class="text-xs text-pink-400 block font-medium">（月曜日スタート 🌷 14日間）</span>
                 </div>
-                <button id="btnNextPeriod" class="p-2.5 bg-pink-50 hover:bg-pink-100 rounded-2xl text-pink-600 transition-colors shadow-xs">
+                <button id="btnNextPeriod" class="p-2.5 bg-pink-50 hover:bg-pink-100 rounded-2xl text-pink-600 transition-colors shadow-xs no-print">
                     <i data-lucide="chevron-right" class="w-5 h-5"></i>
                 </button>
             </div>
 
-            <button id="btnTodayPeriod" class="px-4 py-2 text-xs font-bold text-pink-700 bg-pink-100 hover:bg-pink-200 rounded-2xl transition-colors shadow-xs flex items-center gap-1.5">
+            <button id="btnTodayPeriod" class="px-4 py-2 text-xs font-bold text-pink-700 bg-pink-100 hover:bg-pink-200 rounded-2xl transition-colors shadow-xs flex items-center gap-1.5 no-print">
                 <span>🗓️ 今週を表示する</span>
             </button>
         </div>
 
         <!-- Quick Entry Form Card -->
-        <div class="bg-white rounded-3xl border-2 border-pink-200 shadow-sm p-5 sm:p-6 space-y-4">
+        <div id="weightForm" class="bg-white rounded-3xl border-2 border-pink-200 shadow-sm p-5 sm:p-6 space-y-4 no-print">
             <div class="border-b border-pink-100 pb-3 flex items-center justify-between">
                 <h3 class="font-extrabold text-pink-900 flex items-center gap-2 text-base">
                     <span class="text-xl">✍️</span>
@@ -108,7 +178,7 @@
                 <span class="text-xs text-pink-400 font-medium">数字を入れたら「保存」をおしてね♪</span>
             </div>
 
-            <form id="weightForm" class="space-y-3">
+            <form id="innerWeightForm" class="space-y-3">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 gap-3 items-end">
                     <div>
                         <label class="block text-xs font-bold text-pink-700 mb-1">📅 日付</label>
@@ -157,53 +227,53 @@
         </div>
 
         <!-- Metric Summary Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-white p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div class="bg-white p-3.5 sm:p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-pink-400">期間の平均体重 ⚖️</p>
-                    <h3 id="statAvgWeight" class="text-2xl font-black text-pink-900 mt-1">-- <span class="text-sm font-medium text-pink-400">kg</span></h3>
+                    <p class="text-[11px] font-bold text-pink-400">期間の平均体重 ⚖️</p>
+                    <h3 id="statAvgWeight" class="text-xl sm:text-2xl font-black text-pink-900 mt-0.5">-- <span class="text-xs font-medium text-pink-400">kg</span></h3>
                 </div>
-                <div class="p-3 bg-sky-100 text-sky-600 rounded-2xl text-xl">
+                <div class="p-2.5 bg-sky-100 text-sky-600 rounded-2xl text-lg sm:text-xl">
                     🧸
                 </div>
             </div>
 
-            <div class="bg-white p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
+            <div class="bg-white p-3.5 sm:p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-pink-400">期間の体重変化 📈</p>
-                    <h3 id="statWeightChange" class="text-2xl font-black text-pink-900 mt-1">-- <span class="text-sm font-medium text-pink-400">kg</span></h3>
+                    <p class="text-[11px] font-bold text-pink-400">期間の体重変化 📈</p>
+                    <h3 id="statWeightChange" class="text-xl sm:text-2xl font-black text-pink-900 mt-0.5">-- <span class="text-xs font-medium text-pink-400">kg</span></h3>
                 </div>
-                <div id="statWeightChangeIcon" class="p-3 bg-pink-50 text-pink-600 rounded-2xl text-xl">
+                <div id="statWeightChangeIcon" class="p-2.5 bg-pink-50 text-pink-600 rounded-2xl text-lg sm:text-xl">
                     ✨
                 </div>
             </div>
 
-            <div class="bg-white p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
+            <div class="bg-white p-3.5 sm:p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-pink-400">就寝直前増えた日数 🍓</p>
-                    <h3 id="statNightIncreaseCount" class="text-2xl font-black text-rose-500 mt-1">0 <span class="text-sm font-medium text-pink-400">/ 14日</span></h3>
+                    <p class="text-[11px] font-bold text-pink-400">就寝直前増えた日数 🍓</p>
+                    <h3 id="statNightIncreaseCount" class="text-xl sm:text-2xl font-black text-rose-500 mt-0.5">0 <span class="text-xs font-medium text-pink-400">/ 14日</span></h3>
                 </div>
-                <div class="p-3 bg-rose-100 text-rose-500 rounded-2xl text-xl">
+                <div class="p-2.5 bg-rose-100 text-rose-500 rounded-2xl text-lg sm:text-xl">
                     🍓
                 </div>
             </div>
 
-            <div class="bg-white p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
+            <div class="bg-white p-3.5 sm:p-4 rounded-3xl border-2 border-pink-100 shadow-sm flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-bold text-pink-400">夕食→就寝 平均差分 🌙</p>
-                    <h3 id="statAvgNightDiff" class="text-2xl font-black text-pink-900 mt-1">-- <span class="text-sm font-medium text-pink-400">kg</span></h3>
+                    <p class="text-[11px] font-bold text-pink-400">夕食→就寝 平均差分 🌙</p>
+                    <h3 id="statAvgNightDiff" class="text-xl sm:text-2xl font-black text-pink-900 mt-0.5">-- <span class="text-xs font-medium text-pink-400">kg</span></h3>
                 </div>
-                <div class="p-3 bg-purple-100 text-purple-600 rounded-2xl text-xl">
+                <div class="p-2.5 bg-purple-100 text-purple-600 rounded-2xl text-lg sm:text-xl">
                     🌙
                 </div>
             </div>
         </div>
 
         <!-- Chart Section -->
-        <div class="bg-white rounded-3xl border-2 border-pink-200 shadow-sm p-5 space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-pink-100 pb-4">
+        <div class="bg-white rounded-3xl border-2 border-pink-200 shadow-sm p-4 sm:p-5 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-pink-100 pb-3">
                 <div>
-                    <h2 class="text-lg font-black text-pink-900 flex items-center gap-2">
+                    <h2 class="text-base sm:text-lg font-black text-pink-900 flex items-center gap-2">
                         <span>📊</span>
                         14日間の体重グラフ
                     </h2>
@@ -211,21 +281,21 @@
                 </div>
 
                 <!-- View Switcher Tabs -->
-                <div class="inline-flex p-1 bg-pink-100/80 rounded-2xl text-xs font-bold self-start sm:self-auto gap-1">
-                    <button id="btnViewTimeline" class="px-3.5 py-1.5 rounded-xl bg-white text-pink-900 shadow-xs transition-all">
+                <div class="inline-flex p-1 bg-pink-100/80 rounded-2xl text-xs font-bold self-start sm:self-auto gap-1 no-print">
+                    <button id="btnViewTimeline" class="px-3 py-1.5 rounded-xl bg-white text-pink-900 shadow-xs transition-all">
                         時系列 (56点) 連続
                     </button>
-                    <button id="btnViewDaily" class="px-3.5 py-1.5 rounded-xl text-pink-600 hover:text-pink-900 transition-all">
+                    <button id="btnViewDaily" class="px-3 py-1.5 rounded-xl text-pink-600 hover:text-pink-900 transition-all">
                         時間帯別 4本線
                     </button>
-                    <button id="btnViewDiff" class="px-3.5 py-1.5 rounded-xl text-pink-600 hover:text-pink-900 transition-all">
+                    <button id="btnViewDiff" class="px-3 py-1.5 rounded-xl text-pink-600 hover:text-pink-900 transition-all">
                         夕食後 vs お休み前 差分
                     </button>
                 </div>
             </div>
 
             <!-- Legend and Indicator Help -->
-            <div class="flex flex-wrap items-center gap-3 text-xs bg-pink-50/60 p-3 rounded-2xl font-medium">
+            <div class="flex flex-wrap items-center gap-3 text-xs bg-pink-50/60 p-2.5 sm:p-3 rounded-2xl font-medium">
                 <div class="flex items-center gap-1.5">
                     <span class="w-3 h-3 rounded-full bg-sky-400 inline-block"></span>
                     <span class="text-pink-800">起床時</span>
@@ -242,45 +312,42 @@
                     <span class="w-3 h-3 rounded-full bg-purple-400 inline-block"></span>
                     <span class="text-pink-800">お休み前(通常)</span>
                 </div>
-                <div class="flex items-center gap-1.5 font-bold text-rose-600 bg-rose-100/80 px-2.5 py-1 rounded-xl border border-rose-200">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 inline-block animate-ping"></span>
+                <div class="flex items-center gap-1.5 font-bold text-rose-600 bg-rose-100/80 px-2 py-0.5 rounded-xl border border-rose-200">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block animate-ping"></span>
                     <span>お休み前 (夕食後より増加🍓)</span>
-                </div>
-                <div class="text-pink-400 italic">
-                    ※ 測り忘れた時間はグラフ線がスキップされます
                 </div>
             </div>
 
             <!-- Chart Canvas Container -->
-            <div class="relative w-full h-[380px] sm:h-[420px]">
+            <div class="relative w-full h-[320px] sm:h-[380px] chart-container-box">
                 <canvas id="weightChart"></canvas>
             </div>
         </div>
 
         <!-- 14-Day Table View -->
-        <div class="bg-white rounded-3xl border-2 border-pink-200 shadow-sm p-5 space-y-3">
+        <div class="bg-white rounded-3xl border-2 border-pink-200 shadow-sm p-4 sm:p-5 space-y-3">
             <div class="flex items-center justify-between border-b border-pink-100 pb-3">
                 <h3 class="font-black text-pink-900 flex items-center gap-2 text-base">
                     <span>📖</span>
                     14日間のきろく一覧
                 </h3>
-                <span class="text-xs text-pink-400 font-medium">※ 行をクリックすると上の入力欄にセットされるよ</span>
+                <span class="text-xs text-pink-400 font-medium no-print">※ 行をクリックすると上の入力欄にセットされるよ</span>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-pink-50/80 border-b border-pink-100 text-xs font-bold text-pink-800">
-                            <th class="py-3 px-3">日付</th>
-                            <th class="py-3 px-3">☀️ 起床時</th>
-                            <th class="py-3 px-3">🥐 朝食後</th>
-                            <th class="py-3 px-3">🍽️ 夕食後</th>
-                            <th class="py-3 px-3">🌙 お休み前</th>
-                            <th class="py-3 px-3">夕食後→お休み前</th>
-                            <th class="py-3 px-3 text-center">判定</th>
+                            <th class="py-2.5 px-3">日付</th>
+                            <th class="py-2.5 px-3">☀️ 起床時</th>
+                            <th class="py-2.5 px-3">🥐 朝食後</th>
+                            <th class="py-2.5 px-3">🍽️ 夕食後</th>
+                            <th class="py-2.5 px-3">🌙 お休み前</th>
+                            <th class="py-2.5 px-3">夕食後→お休み前</th>
+                            <th class="py-2.5 px-3 text-center">判定</th>
                         </tr>
                     </thead>
-                    <tbody id="dataTableBody" class="text-sm divide-y divide-pink-100 font-medium">
+                    <tbody id="dataTableBody" class="text-xs sm:text-sm divide-y divide-pink-100 font-medium">
                         <!-- Populated dynamically via JS -->
                     </tbody>
                 </table>
@@ -288,7 +355,7 @@
         </div>
 
         <!-- Gemini Health Coach Section (Pastel Sweet Theme) -->
-        <div class="bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 rounded-3xl p-5 sm:p-6 text-white shadow-xl shadow-purple-200/50 space-y-4">
+        <div class="bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 rounded-3xl p-5 sm:p-6 text-white shadow-xl shadow-purple-200/50 space-y-4 no-print">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/20 pb-4">
                 <div class="flex items-center space-x-3">
                     <div class="p-3 bg-amber-300 text-pink-950 rounded-2xl shadow-lg text-2xl flex items-center justify-center">
@@ -296,8 +363,8 @@
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h2 class="text-lg font-black tracking-wide">Gemini ふんわりAIヘルスコーチ</h2>
-                            <span class="px-2.5 py-0.5 text-[10px] font-bold bg-white/20 text-pink-100 rounded-full border border-white/30">AI Powered</span>
+                            <h2 class="text-lg font-black tracking-wide">Gemini ふんわりヘルスコーチ</h2>
+                            <span class="px-2.5 py-0.5 text-[10px] font-bold bg-white/20 text-pink-100 rounded-full border border-white/30">Gemini 搭載</span>
                         </div>
                         <p class="text-xs text-pink-100 font-medium">14日間の「起床時・朝食後・夕食後・お休み前」のパターンをやさしく分析してアドバイスしてくれるよ✨</p>
                     </div>
@@ -306,7 +373,7 @@
                 <div class="flex flex-wrap items-center gap-2">
                     <button id="btnAiAnalyze" class="px-4 py-2.5 bg-amber-300 hover:bg-amber-200 text-pink-950 font-black text-xs rounded-2xl shadow-md transition-all flex items-center gap-1.5 active:scale-95">
                         <i data-lucide="sparkles" class="w-4 h-4 text-pink-600"></i>
-                        ✨ 14日間のアドバイスをもらう
+                        ✨ 14日間を分析する
                     </button>
                     <button id="btnAiGenCard" class="px-3.5 py-2.5 bg-white/15 hover:bg-white/25 text-white font-bold text-xs rounded-2xl transition-all flex items-center gap-1.5 border border-white/25">
                         <i data-lucide="image" class="w-4 h-4 text-amber-300"></i>
@@ -391,7 +458,7 @@
     </main>
 
     <!-- API Key Settings Modal -->
-    <div id="apiKeyModal" class="fixed inset-0 bg-pink-950/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div id="apiKeyModal" class="fixed inset-0 bg-pink-950/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4 no-print">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl border-2 border-pink-200">
             <div class="flex items-center justify-between border-b border-pink-100 pb-3">
                 <h3 class="font-extrabold text-pink-900 text-base flex items-center gap-2">
@@ -403,7 +470,7 @@
             </div>
             
             <p class="text-xs text-pink-600 leading-relaxed font-medium">
-                Gemini AIの分析や声のアドバイス、イラスト画像作成機能を使うための無料APIキーを入力してね。<br>
+                Gemini の分析や声のアドバイス、イラスト画像作成機能をつかうための無料APIキーを入力してね。<br>
                 キーはお使いのブラウザ（localStorage）にのみ安全に保存されます。
             </p>
 
@@ -427,7 +494,7 @@
     </div>
 
     <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-pink-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm z-50 font-bold border border-pink-700">
+    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-pink-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-sm z-50 font-bold border border-pink-700 no-print">
         <span class="text-lg">🌸</span>
         <span id="toastMessage">保存しました</span>
     </div>
@@ -512,9 +579,15 @@
                 return `${y}年${m}月${day}日(${dow})`;
             };
             
+            const labelText = `${formatFull(start)} 〜 ${formatFull(end)}`;
             const labelEl = document.getElementById('periodLabel');
             if (labelEl) {
-                labelEl.textContent = `${formatFull(start)} 〜 ${formatFull(end)}`;
+                labelEl.textContent = labelText;
+            }
+
+            const printLabelEl = document.getElementById('printPeriodTitle');
+            if (printLabelEl) {
+                printLabelEl.textContent = `${labelText} (14日間記録シート)`;
             }
         }
 
@@ -547,9 +620,9 @@
             const avgWeightEl = document.getElementById('statAvgWeight');
             if (allWeights.length > 0) {
                 const avg = allWeights.reduce((a, b) => a + b, 0) / allWeights.length;
-                avgWeightEl.innerHTML = `${avg.toFixed(2)} <span class="text-sm font-normal text-pink-400">kg</span>`;
+                avgWeightEl.innerHTML = `${avg.toFixed(2)} <span class="text-xs font-normal text-pink-400">kg</span>`;
             } else {
-                avgWeightEl.innerHTML = `-- <span class="text-sm font-normal text-pink-400">kg</span>`;
+                avgWeightEl.innerHTML = `-- <span class="text-xs font-normal text-pink-400">kg</span>`;
             }
 
             // 2. Weight Change
@@ -562,29 +635,29 @@
                 const sign = change > 0 ? '+' : '';
                 const colorClass = change > 0 ? 'text-rose-500' : (change < 0 ? 'text-emerald-600' : 'text-pink-900');
                 
-                weightChangeEl.className = `text-2xl font-black mt-1 ${colorClass}`;
-                weightChangeEl.innerHTML = `${sign}${change.toFixed(2)} <span class="text-sm font-normal text-pink-400">kg</span>`;
+                weightChangeEl.className = `text-xl sm:text-2xl font-black mt-0.5 ${colorClass}`;
+                weightChangeEl.innerHTML = `${sign}${change.toFixed(2)} <span class="text-xs font-normal text-pink-400">kg</span>`;
                 
                 if (changeIconEl) {
                     if (change > 0) {
-                        changeIconEl.className = "p-3 bg-rose-100 text-rose-500 rounded-2xl text-xl";
+                        changeIconEl.className = "p-2.5 bg-rose-100 text-rose-500 rounded-2xl text-lg sm:text-xl";
                         changeIconEl.innerHTML = '📈';
                     } else if (change < 0) {
-                        changeIconEl.className = "p-3 bg-emerald-100 text-emerald-600 rounded-2xl text-xl";
+                        changeIconEl.className = "p-2.5 bg-emerald-100 text-emerald-600 rounded-2xl text-lg sm:text-xl";
                         changeIconEl.innerHTML = '📉';
                     } else {
-                        changeIconEl.className = "p-3 bg-pink-100 text-pink-600 rounded-2xl text-xl";
+                        changeIconEl.className = "p-2.5 bg-pink-100 text-pink-600 rounded-2xl text-lg sm:text-xl";
                         changeIconEl.innerHTML = '✨';
                     }
                 }
             } else {
-                weightChangeEl.className = "text-2xl font-black text-pink-900 mt-1";
-                weightChangeEl.innerHTML = `-- <span class="text-sm font-normal text-pink-400">kg</span>`;
+                weightChangeEl.className = "text-xl sm:text-2xl font-black text-pink-900 mt-0.5";
+                weightChangeEl.innerHTML = `-- <span class="text-xs font-normal text-pink-400">kg</span>`;
             }
 
             // 3. Night Increase Count
             const countEl = document.getElementById('statNightIncreaseCount');
-            countEl.innerHTML = `${nightIncreaseCount} <span class="text-sm font-normal text-pink-400">/ 14日</span>`;
+            countEl.innerHTML = `${nightIncreaseCount} <span class="text-xs font-normal text-pink-400">/ 14日</span>`;
 
             // 4. Avg Night Diff
             const avgNightDiffEl = document.getElementById('statAvgNightDiff');
@@ -592,11 +665,11 @@
                 const avgDiff = nightDiffs.reduce((a, b) => a + b, 0) / nightDiffs.length;
                 const sign = avgDiff > 0 ? '+' : '';
                 const colorClass = avgDiff > 0 ? 'text-rose-500' : (avgDiff < 0 ? 'text-emerald-600' : 'text-pink-900');
-                avgNightDiffEl.className = `text-2xl font-black mt-1 ${colorClass}`;
-                avgNightDiffEl.innerHTML = `${sign}${avgDiff.toFixed(2)} <span class="text-sm font-normal text-pink-400">kg</span>`;
+                avgNightDiffEl.className = `text-xl sm:text-2xl font-black mt-0.5 ${colorClass}`;
+                avgNightDiffEl.innerHTML = `${sign}${avgDiff.toFixed(2)} <span class="text-xs font-normal text-pink-400">kg</span>`;
             } else {
-                avgNightDiffEl.className = "text-2xl font-black text-pink-900 mt-1";
-                avgNightDiffEl.innerHTML = `-- <span class="text-sm font-normal text-pink-400">kg</span>`;
+                avgNightDiffEl.className = "text-xl sm:text-2xl font-black text-pink-900 mt-0.5";
+                avgNightDiffEl.innerHTML = `-- <span class="text-xs font-normal text-pink-400">kg</span>`;
             }
 
             lucide.createIcons();
@@ -608,8 +681,8 @@
             const btnDaily = document.getElementById('btnViewDaily');
             const btnDiff = document.getElementById('btnViewDiff');
 
-            const activeClass = "px-3.5 py-1.5 rounded-xl bg-white text-pink-900 shadow-xs transition-all";
-            const inactiveClass = "px-3.5 py-1.5 rounded-xl text-pink-600 hover:text-pink-900 transition-all";
+            const activeClass = "px-3 py-1.5 rounded-xl bg-white text-pink-900 shadow-xs transition-all";
+            const inactiveClass = "px-3 py-1.5 rounded-xl text-pink-600 hover:text-pink-900 transition-all";
 
             btnTimeline.className = viewName === 'timeline' ? activeClass : inactiveClass;
             btnDaily.className = viewName === 'daily' ? activeClass : inactiveClass;
@@ -735,6 +808,10 @@
                 renderAll();
             });
 
+            document.getElementById('btnPrintA4').addEventListener('click', () => {
+                window.print();
+            });
+
             document.getElementById('btnSampleData').addEventListener('click', () => {
                 generateSampleData();
                 showToast("かわいいサンプルデータをセットしたよ🌸");
@@ -756,7 +833,7 @@
             document.getElementById('btnViewDaily').addEventListener('click', () => switchView('daily'));
             document.getElementById('btnViewDiff').addEventListener('click', () => switchView('diff'));
 
-            document.getElementById('weightForm').addEventListener('submit', (e) => {
+            document.getElementById('innerWeightForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const date = document.getElementById('inputDate').value;
                 
@@ -1182,16 +1259,16 @@
                 tr.className = `hover:bg-pink-100/60 cursor-pointer transition-colors ${isRed ? 'bg-rose-50/60' : ''}`;
                 
                 tr.innerHTML = `
-                    <td class="py-3 px-3 font-bold text-pink-900 flex items-center gap-1.5">
+                    <td class="py-2.5 px-3 font-bold text-pink-900 flex items-center gap-1.5">
                         ${d} <span class="text-xs text-pink-400 font-medium">(${shortDate.split('(')[1]}</span>
                         ${isRed ? '🍓' : ''}
                     </td>
-                    <td class="py-3 px-3 text-pink-800">${wakeStr}</td>
-                    <td class="py-3 px-3 text-pink-800">${afterBfStr}</td>
-                    <td class="py-3 px-3 text-pink-800 font-bold">${afterDinnerStr}</td>
-                    <td class="py-3 px-3 ${isRed ? 'text-rose-600 font-black' : 'text-pink-800'}">${bedStr}</td>
-                    <td class="py-3 px-3">${diffStr}</td>
-                    <td class="py-3 px-3 text-center">${badge}</td>
+                    <td class="py-2.5 px-3 text-pink-800">${wakeStr}</td>
+                    <td class="py-2.5 px-3 text-pink-800">${afterBfStr}</td>
+                    <td class="py-2.5 px-3 text-pink-800 font-bold">${afterDinnerStr}</td>
+                    <td class="py-2.5 px-3 ${isRed ? 'text-rose-600 font-black' : 'text-pink-800'}">${bedStr}</td>
+                    <td class="py-2.5 px-3">${diffStr}</td>
+                    <td class="py-2.5 px-3 text-center">${badge}</td>
                 `;
 
                 tr.addEventListener('click', () => {
@@ -1307,7 +1384,7 @@
             const key = getStoredApiKey();
             if (!key) {
                 document.getElementById('apiKeyModal').classList.remove('hidden');
-                alert("Gemini AI機能をつかうには APIキー の設定が必要です🎀");
+                alert("Gemini 機能をつかうには APIキー の設定が必要です🎀");
                 return null;
             }
             return key;
@@ -1420,7 +1497,7 @@
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
-            const systemPrompt = "あなたはユーザーの健康と生活習慣を優しく見守る、可愛くて親身なAIフレンド・ヘルスコーチです。絵文字（🌸, 🥐, 🍽️, ✨, 🎀, 🌙など）を交えながら、ポジティブでやる気が出る言葉遣いでフィードバックしてください。特に「起床時」「朝食後」「夕食後」「お休み前」の傾向と、夕食後から就寝前までの体重変化・夜の間食アドバイスを行ってください。";
+            const systemPrompt = "あなたはユーザーの健康と生活習慣を優しく見守る、可愛くて親身なフレンド・ヘルスコーチです。絵文字（🌸, 🥐, 🍽️, ✨, 🎀, 🌙など）を交えながら、ポジティブでやる気が出る言葉遣いでフィードバックしてください。特に「起床時」「朝食後」「夕食後」「お休み前」の傾向と、夕食後から就寝前までの体重変化・夜の間食アドバイスを行ってください。";
             
             const userPrompt = `ユーザーの14日間の記録です：
 
@@ -1485,7 +1562,7 @@ ${logsSummary.join('\n')}
                     latestSpeechText = data.speechText || data.summary;
 
                     resultCard.classList.remove('hidden');
-                    showToast("Gemini AIのアドバイスが届いたよ🌸");
+                    showToast("Gemini のアドバイスが届いたよ🌸");
                 }
             } catch (err) {
                 console.error("Gemini Analysis Error:", err);
@@ -1497,7 +1574,7 @@ ${logsSummary.join('\n')}
 
         async function playSpeechAdvice() {
             if (!latestSpeechText) {
-                alert("最初に「14日間のアドバイスをもらう」を実行してね🌸");
+                alert("最初に「14日間を分析する」を実行してね🌸");
                 return;
             }
 
